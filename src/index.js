@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import '@splidejs/splide/dist/js/splide.min';
+import '@splidejs/splide/dist/css/splide.min.css';
 import 'font-awesome-v6/css/all.min.css';
 import 'font-awesome-v6/js/pro.min';
 import './index.css';
