@@ -1,20 +1,23 @@
 :root {
-  --bg-color: #131722;
-  --main-font: 'Montserrat Alternates', sans-serif;
-  --light-bg: #24baef;
-  --font-color: #fff;
+    --bg-color: #131722;
+    --main-font: 'Montserrat Alternates', sans-serif;
+    --light-bg: #24baef;
+    --font-color: #fff;
 }
 
 body {
-  background: var(--bg-color);
-  font-family: var(--main-font);
-  color: var(--font-color);
+    background: var(--bg-color);
+    font-family: var(--main-font);
+    color: var(--font-color);
 }
+
 a {
-  color: var(--font-color);
-  text-decoration: none;
+    color: var(--font-color);
+    text-decoration: none;
 }
-.my-input{
-  background: transparent;
-  border: solid 1px #a8a8a83d;
+
+.my-input {
+    background: transparent;
+    border: solid 1px #a8a8a83d;
+    color: var(--font-color);
 }
