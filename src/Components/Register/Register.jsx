@@ -1,7 +1,7 @@
 import React, {Fragment, useState} from 'react';
 import {useNavigate} from "react-router-dom";
-import Joi, {func} from "joi";
-import {error} from "@splidejs/splide/src/js/utils";
+import Joi from "joi";
+import {Helmet} from "react-helmet";
 
 export default function Register() {
 
@@ -44,7 +44,9 @@ export default function Register() {
     }
 
     return <>
-
+        <Helmet>
+            <title>Register</title>
+        </Helmet>
         <form action="" onSubmit={submitRegisterForm}>
             <label htmlFor="firstName">First Name</label>
             <input onChange={getUserData} type="text" className='form-control my-input my-2' name='firstName'
