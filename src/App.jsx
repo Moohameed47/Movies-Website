@@ -12,6 +12,7 @@ import Login from './Components/Login/Login';
 import Register from './Components/Register/Register';
 import Movies from './Components/Movies/Movies';
 import Profile from "./Components/Profile/profile";
+import Protected from "./Components/Protected/Protected";
 
 function App() {
     const API = 'https://api.themoviedb.org/3/discover/movie?api_key=1907dd7e22213c1275b820c5455946aa&page=2&sort_by=popularity.desc';
@@ -31,14 +32,15 @@ function App() {
             path: '/',
             element: <Layout setUserData={setUserData} userData={userData}/>,
             children: [
-                {path: 'home', element: <Home/>},
-                {path: 'about', element: <About/>},
-                {path: 'people', element: <People/>},
-                {path: 'tv', element: <Tv/>},
-                {path: 'login', element: <Login saveUserData={saveUserData}/>},
                 {index: true, element: <Register saveUserData={saveUserData}/>},
-                {path: 'movies', element: <Movies/>},
-                {path: 'profile', element: <Profile/>},
+                {path: 'login', element: <Login saveUserData={saveUserData}/>},
+                {path: 'profile', element: <Protected><Profile/></Protected>},
+                {path: 'movies', element: <Protected><Movies/></Protected>},
+                {path: 'people', element: <Protected><People/></Protected>},
+                {path: 'about', element: <Protected><About/></Protected>},
+                {path: 'home', element: <Protected><Home/></Protected>},
+                {path: '*', element: <Protected><Home/></Protected>},
+                {path: 'tv', element: <Protected><Tv/></Protected>},
             ],
         },
     ]);
