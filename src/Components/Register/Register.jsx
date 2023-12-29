@@ -3,7 +3,7 @@ import {useNavigate} from "react-router-dom";
 import Joi from "joi";
 import {Helmet} from "react-helmet";
 
-export default function Register() {
+export default function Register({saveUserData}) {
 
     let navigate = useNavigate();
 
@@ -17,7 +17,6 @@ export default function Register() {
         let myUser = {...user}
         myUser[eventInfo.target.name] = eventInfo.target.value;
         setUser(myUser)
-        console.log(myUser)
     }
 
 
@@ -27,8 +26,12 @@ export default function Register() {
         let validation = validateRegisterForm()
         // console.log(validation) // Don't Forget To See This Variable To Can Customize Validate
         if (validation.error) setErrorList(validation.error.details)
-        else
-            navigate('/login')
+        else {
+            localStorage.setItem('DataBase', JSON.stringify(user));
+            localStorage.setItem('Token', JSON.stringify(user))
+            saveUserData();
+            navigate('/home')
+        }
     }
 
     function validateRegisterForm() {
@@ -52,12 +55,14 @@ export default function Register() {
             <input onChange={getUserData} type="text" className='form-control my-input my-2' name='firstName'
                    id='firstName'/>
             {errorList.filter((err) => err.context.label === 'firstName')[0] ? <div className='alert alert-danger my-0'>
-                <p className='mb-0'>{errorList.filter((err) => err.context.label === 'firstName')[0]?.message}</p></div> : ''}
+                <p className='mb-0'>{errorList.filter((err) => err.context.label === 'firstName')[0]?.message}</p>
+            </div> : ''}
             <label htmlFor="lastName">Last Name</label>
             <input onChange={getUserData} type="text" className='form-control my-input my-2' name='lastName'
                    id='lastName'/>
             {errorList.filter((err) => err.context.label === 'lastName')[0] ? <div className='alert alert-danger my-2'>
-                <p className='mb-0'>{errorList.filter((err) => err.context.label === 'lastName')[0]?.message}</p></div> : ``}
+                <p className='mb-0'>{errorList.filter((err) => err.context.label === 'lastName')[0]?.message}</p>
+            </div> : ``}
             <label htmlFor="age">Age</label>
             <input onChange={getUserData} type="number" className='form-control my-input my-2' name='age' id='age'/>
             {errorList.filter((err) => err.context.label === 'age')[0] ? <div className='alert alert-danger my-2'>
@@ -65,12 +70,14 @@ export default function Register() {
             <label htmlFor="email">Email</label>
             <input onChange={getUserData} type="email" className='form-control my-input my-2' name='email' id='email'/>
             {errorList.filter((err) => err.context.label === 'email')[0] ? <div className='alert alert-danger my-2'>
-                <p className='mb-0'>{errorList.filter((err) => err.context.label === 'email')[0]?.message}</p></div> : ``}
+                <p className='mb-0'>{errorList.filter((err) => err.context.label === 'email')[0]?.message}</p>
+            </div> : ``}
             <label htmlFor="password">Password</label>
             <input onChange={getUserData} type="password" className='form-control my-input my-2' name='password'
                    id='password'/>
             {errorList.filter((err) => err.context.label === 'password')[0] ? <div className='alert alert-danger my-2'>
-                <p className='mb-0'>{errorList.filter((err) => err.context.label === 'password')[0]?.message}</p></div> : ``}
+                <p className='mb-0'>{errorList.filter((err) => err.context.label === 'password')[0]?.message}</p>
+            </div> : ``}
             <button className='btn btn-info'>Register</button>
             {isLoading === true ? <i className='fas fa-spinner fa-spin'></i> : ''}
         </form>
