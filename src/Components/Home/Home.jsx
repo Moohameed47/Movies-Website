@@ -1,8 +1,8 @@
-import React, {Fragment, useEffect, useState} from 'react';
+import React, {Fragment} from 'react';
 import {Helmet} from "react-helmet";
+import MovieCard from "../MovieCard/MovieCard";
 
-export default function Home() {
-
+export default function Home({movies}) {
     return <>
         <Helmet>
             <title>Home</title>
@@ -14,6 +14,9 @@ export default function Home() {
                 <p className='py-2 text-muted'>Watch Movies Right Now</p>
                 <div className="border-gray w-100 mt-3"></div>
             </div>
+
+            {movies.map((movie, index) => <MovieCard key={index} ind={index} Movie={movie}/>)}
+
         </div>
     </>
 }
