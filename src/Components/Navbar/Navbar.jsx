@@ -8,7 +8,7 @@ export default function Navbar({userData, logOut}) {
                 <div className="left-nav flex-md-row flex-column d-flex align-items-center">
                     <h1 className='m-0 pe-3'>Noxe</h1>
                     {userData ? <ul className='list-unstyled d-flex flex-md-row flex-column m-0 align-items-center'>
-                        <li className='px-2'><Link to='home'>Home</Link></li>
+                        <li className='px-2'><Link to=''>Home</Link></li>
                         <li className='px-2'><Link to='about'>About</Link></li>
                         <li className='px-2'><Link to='movies'>Movies</Link></li>
                         <li className='px-2'><Link to='tv'>Tv</Link></li>
@@ -27,7 +27,7 @@ export default function Navbar({userData, logOut}) {
                         {!userData ?
                             <>
                                 <li className='px-2'><Link to='login'>Login</Link></li>
-                                <li className='px-2'><Link to=''>Register</Link></li>
+                                <li className='px-2'><Link to='register'>Register</Link></li>
                             </> :
                             <>
                                 <li className='px-2'><Link onClick={logOut} to='login'>Logout</Link></li>

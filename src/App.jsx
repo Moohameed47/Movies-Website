@@ -1,5 +1,5 @@
 import './App.css';
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import {RouterProvider, createBrowserRouter} from "react-router-dom";
 import Layout from './Components/Layout/Layout';
@@ -12,32 +12,25 @@ import Register from './Components/Register/Register';
 import Movies from './Components/Movies/Movies';
 import Profile from "./Components/Profile/profile";
 import Protected from "./Components/Protected/Protected";
+import {Offline} from "react-detect-offline"
+import OfflineImage from './Components/Images/Offline.jpg'
 
 function App() {
-    const API = 'https://api.themoviedb.org/3/discover/movie?api_key=1907dd7e22213c1275b820c5455946aa&page=2&sort_by=popularity.desc';
-
+    const API = 'https://api.themoviedb.org/3/discover/movie?api_key=1907dd7e22213c1275b820c5455946aa&page=1&sort_by=popularity.desc';
+    const [userData, setUserData] = useState(null)
     const [movies, setMovies] = useState([]);
 
     let GetApi = async () => {
-        fetch(API)
-            .then((res) => res.json())
-            .then((data) => {
-                setMovies(data.results);
-            });
         let {data} = await axios.get(API);
-        setMovies(data);
+        setMovies(data.results);
         return data;
     };
 
     useEffect(() => {
         GetApi().then(r => console.log(r)).catch(err => console.log(err))
-    }, []);
-
-    const [userData, setUserData] = useState(null)
-    useEffect(() => {
         JSON.parse(localStorage.getItem('Token')) !== null ? saveUserData() : console.log()
-    }, [])
-
+    }, []);
+    
     function saveUserData() {
         let token = JSON.parse(localStorage.getItem('Token'));
         setUserData(token)
@@ -48,23 +41,30 @@ function App() {
             path: '/',
             element: <Layout setUserData={setUserData} userData={userData}/>,
             children: [
-                {index: true, element: <Register saveUserData={saveUserData}/>},
-                {path: 'login', element: <Login saveUserData={saveUserData}/>},
+                {index: true, element: <Protected><Home movies={movies}/></Protected>},
                 {path: 'profile', element: <Protected><Profile/></Protected>},
                 {path: 'movies', element: <Protected><Movies/></Protected>},
                 {path: 'people', element: <Protected><People/></Protected>},
                 {path: 'about', element: <Protected><About/></Protected>},
-                {path: 'home', element: <Protected><Home movies={movies}/></Protected>},
-                {path: '*', element: <Protected><Home movies={movies}/></Protected>},
                 {path: 'tv', element: <Protected><Tv/></Protected>},
+                {path: 'login', element: <Login saveUserData={saveUserData}/>},
+                {path: '*', element: <Protected><Home movies={movies}/></Protected>},
+                {path: 'register', element: <Register saveUserData={saveUserData}/>},
             ],
         },
     ]);
-
-    return <RouterProvider router={routers}/>;
-    // return <>
-    //     {movies.map((movie) => console.log(movie))}
-    // </>
+    return <>
+        <div>
+            <Offline>
+                <div className="OfflineContainer position-fixed top-0 start-0">
+                    <div className="Offline">
+                        <img src={OfflineImage} className={'w-100'} alt=""/>
+                    </div>
+                </div>
+            </Offline>
+        </div>
+        <RouterProvider router={routers}/>;
+    </>
 }
 
 export default App;

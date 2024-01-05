@@ -9,10 +9,9 @@ export default function MovieCard({Movie, key}) {
                 <div className="movie position-relative">
                     <img src={'https://image.tmdb.org/t/p/w500' + Movie.poster_path} className='w-100' alt=""/>
                     <Link to={MovieLink} className='fs-6 my-2'>{Movie.title} </Link>
-                    {/*{Movie.vote_average > 8 && <div className="bg-info vote position-absolute p-2 text-white top-0 end-0">{Movie.vote_average.toFixed(1)}</div>}*/}
                     {Movie.vote_average &&
                         <div
-                              className="bg-info vote position-absolute p-2 text-white top-0 end-0">
+                            className="bg-info vote position-absolute p-2 text-white top-0 end-0">
                             {Movie.vote_average.toFixed(1)}
                         </div>
                     }
