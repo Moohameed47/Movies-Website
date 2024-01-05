@@ -1,5 +1,6 @@
 import React, {Fragment} from 'react';
 import {Link} from "react-router-dom";
+import MovieStream from "../MovieStream/MovieStream";
 
 export default function MovieCard({Movie, key}) {
     let MovieLink = 'https://embed.smashystream.com/playere.php?tmdb=' + Movie.id;
@@ -8,7 +9,7 @@ export default function MovieCard({Movie, key}) {
             <div className="col-md-2">
                 <div className="movie position-relative">
                     <img src={'https://image.tmdb.org/t/p/w500' + Movie.poster_path} className='w-100' alt=""/>
-                    <Link to={MovieLink} className='fs-6 my-2'>{Movie.title} </Link>
+                    <Link to={`MovieStream/${Movie.id}`} className='fs-6 my-2'>{Movie.title} </Link>
                     {Movie.vote_average &&
                         <div
                             className="bg-info vote position-absolute p-2 text-white top-0 end-0">

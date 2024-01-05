@@ -14,6 +14,7 @@ import Profile from "./Components/Profile/profile";
 import Protected from "./Components/Protected/Protected";
 import {Offline} from "react-detect-offline"
 import OfflineImage from './Components/Images/Offline.jpg'
+import MovieStream from "./Components/MovieStream/MovieStream";
 
 function App() {
     const API = 'https://api.themoviedb.org/3/discover/movie?api_key=1907dd7e22213c1275b820c5455946aa&page=1&sort_by=popularity.desc';
@@ -30,7 +31,7 @@ function App() {
         GetApi().then(r => console.log(r)).catch(err => console.log(err))
         JSON.parse(localStorage.getItem('Token')) !== null ? saveUserData() : console.log()
     }, []);
-    
+
     function saveUserData() {
         let token = JSON.parse(localStorage.getItem('Token'));
         setUserData(token)
@@ -50,11 +51,11 @@ function App() {
                 {path: 'login', element: <Login saveUserData={saveUserData}/>},
                 {path: '*', element: <Protected><Home movies={movies}/></Protected>},
                 {path: 'register', element: <Register saveUserData={saveUserData}/>},
+                {path: 'MovieStream/:id', element: <MovieStream/>},
             ],
         },
     ]);
     return <>
-        <div>
             <Offline>
                 <div className="OfflineContainer position-fixed top-0 start-0">
                     <div className="Offline">
@@ -62,8 +63,7 @@ function App() {
                     </div>
                 </div>
             </Offline>
-        </div>
-        <RouterProvider router={routers}/>;
+        <RouterProvider router={routers}/>
     </>
 }
 
